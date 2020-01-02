@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "As a user" do
   describe "when i view nav bar", type: :feature do
-    it "i see links to home page and books index" do
+    it "i see links to home page and book index" do
       visit "/"
 
       within 'nav' do

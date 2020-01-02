@@ -6,6 +6,8 @@
       <p>Author: <%= book.author.name %></p>
       <p>Pages: <%= book.pages %></p>
       <p>Publication Year: <%= book.publication_year %></p>
+      <h3>Ratings: </h3><p>Avg. Rating: <%= book.avg_rating %> (<%= book.rating_count %>)</p>
+
     </section>
     <br>
   <% end %>

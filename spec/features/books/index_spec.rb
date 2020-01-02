@@ -19,13 +19,33 @@ RSpec.describe "As a user" do
         publication_year: 2011
       )
 
+      @rating_1 = Rating.create(
+        title: "Great read!",
+        score: 5,
+        comment: "This is my new favorite book."
+      )
+
+      @rating_2 = Rating.create(
+        title: "Great read!",
+        score: 4,
+        comment: "This is my second favorite book."
+      )
+
+      @rating_3 = Rating.create(
+        title: "Crap read!",
+        score: 1,
+        comment: "This is my least favorite book"
+      )
+
       @p_delong.books << [@the_book, @the_other_book]
+
+      @the_book.ratings << [@rating_1, @rating_2]
+      @the_other_book.ratings << [@rating_3]
 
       visit '/books'
     end
 
     it "i see all book titles author pages and year published" do
-      # save_and_open_page
       within "#book-#{@the_book.id}" do
         expect(page).to have_content("Title: Dude")
         expect(page).to have_content("Author: Phil DeLong")
@@ -40,14 +60,15 @@ RSpec.describe "As a user" do
         expect(page).to have_content("Publication Year: 2011")
       end
     end
+
+    it "i can see rating average and quantity for books" do
+      within "#book-#{@the_book.id}" do
+        expect(page).to have_content("Avg. Rating: 4.5 (2)")
+      end
+
+      within "#book-#{@the_other_book.id}" do
+        expect(page).to have_content("Avg. Rating: 1.0 (1)")
+      end
+    end
   end
 end
-
-# User Story 6
-# Book Index Page
-#
-# As a Visitor,
-# When I visit a book index page,
-# I see all book titles in the database.
-# Each book entry on the page shows the author(s) and number of
-# pages in the book, and the year it was published.
